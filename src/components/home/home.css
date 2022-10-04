@@ -1,0 +1,25 @@
+#home .container{
+    height: 100vh;
+    justify-content: center;
+}
+
+#home .container img{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    margin-bottom: 60px;
+}
+
+#home .container h1{
+    text-align: center;
+}
+
+#home .container p{
+    text-align: center;
+    margin-top: 20px;
+    color: var(--color-3);
+}
+
+#home .container #home-button{
+    margin-top: 70px;
+}
