@@ -8,7 +8,7 @@ import InputText from '../inputs/inputText/inputText';
 import InputMail from '../inputs/inputMail/inputMail';
 import Button from '../button/button';
 
-
+import axios from 'axios';
 
 function addZero(int){
     if(int<=9){
@@ -44,17 +44,22 @@ function Join() {
         
     }, [hour, minute, second]);
 
-    const addPromotion = ()=>{
-        fetch("http://127.0.0.1:8000/promotions/", {
-            method: 'GET',
-            redirect: 'follow'
-          })
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-    }
+    useEffect(()=>{
+        const config = {
+            method: 'get',
+            url: 'http://127.0.0.1:8000/promotions/',
+            headers: { 
+            }
+        };
 
-    addPromotion();
+        axios(config)
+        .then(function (response) {
+            setPromotion(response.data.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });  
+    }, [promotion]);
 
     return (
         <div className="content" id="join">
@@ -102,7 +107,7 @@ function Join() {
                                 <div class="inputs-label">Promotion</div>
                                 <select id="join-promotion">
                                     {promotion.map((p)=>
-                                        <option value={p.id}>{p.label}</option>
+                                        <option key={p.id} value={p.id}>{p.label}</option>
                                     )}
                                 </select>
                                 <div class="inputs-error-text">none</div>
