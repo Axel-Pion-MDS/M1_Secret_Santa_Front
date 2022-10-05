@@ -8,6 +8,8 @@ import InputText from '../inputs/inputText/inputText';
 import InputMail from '../inputs/inputMail/inputMail';
 import Button from '../button/button';
 
+
+
 function addZero(int){
     if(int<=9){
         return `0${int}`;
@@ -25,6 +27,8 @@ function Join() {
     const [second, setSecond] = useState(0);
     const [promotion, setPromotion] = useState([]);
 
+    
+
     useEffect(()=>{        
         const timer = setInterval(()=>{
             const today = new Date();
@@ -35,10 +39,22 @@ function Join() {
             setHour(hours);
             setMinute(minutes);
             setSecond(seconds);
-        }, 100)
+        }, 100);
         
         
     }, [hour, minute, second]);
+
+    const addPromotion = ()=>{
+        fetch("http://127.0.0.1:8000/promotions/", {
+            method: 'GET',
+            redirect: 'follow'
+          })
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+
+    addPromotion();
 
     return (
         <div className="content" id="join">
