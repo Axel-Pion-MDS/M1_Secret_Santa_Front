@@ -20,28 +20,15 @@ function addZero(int){
 function Join() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    let dateLoaded = false;
     
-    const enddate = new Date(2022, 11, 24);
     const [hour, setHour] = useState(0);
     const [minute, setMinute] = useState(0);
     const [second, setSecond] = useState(0);
     const [promotion, setPromotion] = useState([]);
-    const [santa, setSanta] = useState(0);
-    
-    useEffect(()=>{        
-        const timer = setInterval(()=>{
-            const today = new Date();
-            const hours = parseInt(Math.ceil(Math.abs(today - enddate) / (1000 * 60 * 60)));
-            const minutes = parseInt(Math.abs(enddate.getTime() - today.getTime()) / (1000 * 60) % 60);
-            const seconds = parseInt(Math.abs(enddate.getTime() - today.getTime()) / (1000) % 60); 
-
-            setHour(hours);
-            setMinute(minutes);
-            setSecond(seconds);
-        }, 100);
-        
-        
-    }, [hour, minute, second]);
+    const [santa, setSanta] = useState([]);
+    const [drawtimer, setDrawTimer] = useState(undefined);
 
     useEffect(()=>{
         const config = {
@@ -70,30 +57,69 @@ function Join() {
 
         axios(config)
         .then(function (response) {
-            setSanta(response.data);
+            setSanta(response.data.data);
+            const firstDate = new Date(response.data.data[0].draw_date);   
+             
+            const timer = setInterval(()=>{
+                updateDrawDate(firstDate);   
+            },100);
+    
+            setDrawTimer(timer);   
         })
         .catch(function (error) {
             console.log(error);
         });  
-    }, [santa]);
+    }, []);
+
+    const updateDrawDate = (enddate)=>{
+        const today = new Date();
+        const hours = parseInt(Math.ceil(Math.abs(today - enddate) / (1000 * 60 * 60)));
+        const minutes = parseInt(Math.abs(enddate.getTime() - today.getTime()) / (1000 * 60) % 60);
+        const seconds = parseInt(Math.abs(enddate.getTime() - today.getTime()) / (1000) % 60); 
+
+        setHour(hours);
+        setMinute(minutes);
+        setSecond(seconds);
+    }
+
+    const changeDrawDate = (e)=>{
+        const selector = document.getElementById('join-santa');
+        const index = selector.selectedIndex;
+        const selected = selector.childNodes.item(index);
+        const draw_date = new Date(selected.dataset.draw);
+
+        clearInterval(drawtimer);        
+
+        const timer = setInterval(()=>{
+            updateDrawDate(draw_date);
+        },100);
+
+        setDrawTimer(timer);              
+    }; 
 
     const sendForm = (e)=>{
         const form = document.getElementById('join-form');
         const firstname = form.querySelector('#join-firstname input').value;
         const lastname = form.querySelector('#join-lastname input').value;
         const email = form.querySelector('#join-email input').value;
-        const promo = form.querySelector('#join-promotion').value;
+        const promo_id = form.querySelector('#join-promotion').value;
+        const santa_id = form.querySelector('#join-santa').value;
+
+        if(!firstname.length || !lastname.length || !email.length){
+            return;
+        }
 
         var data = JSON.stringify({
             firstname: firstname,
             lastname: lastname,
             email: email,
-            promo: promo,
+            promo: promo_id,
+            santa: santa_id,
         });
           
         var config = {
             method: 'post',
-            url: `http://127.0.0.1:8000/santa/${santa}/add`,
+            url: `http://127.0.0.1:8000/users/add`,
             headers: { 
                 'Content-Type': 'application/json'
             },
@@ -162,6 +188,20 @@ function Join() {
                             </label>                           
                         </div>
                     </div>        
+
+                    <div className="row">
+                        <div className="col full">
+                            <label className='inputs input-label'>
+                                <div class="inputs-label">Select your Secret Santa</div>
+                                <select id="join-santa" onInput={(e)=>changeDrawDate(e)} on>
+                                    {santa.map((p)=>
+                                        <option key={p.id} value={p.id} data-draw={p.draw_date}>{p.label}</option>
+                                    )}
+                                </select>
+                                <div class="inputs-error-text">none</div>
+                            </label>                           
+                        </div>
+                    </div>
 
                     <div className="join-timer">
                         The draw is in 
