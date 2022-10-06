@@ -114,11 +114,12 @@ function Join() {
             lastname: lastname,
             email: email,
             promo: promo_id,
+            santa: santa_id,
         });
           
         var config = {
             method: 'post',
-            url: `http://127.0.0.1:8000/santa/${santa_id}/add`,
+            url: `http://127.0.0.1:8000/users/add`,
             headers: { 
                 'Content-Type': 'application/json'
             },
