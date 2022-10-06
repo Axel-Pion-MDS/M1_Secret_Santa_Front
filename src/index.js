@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './components/home/home';
 import Join from './components/join/join';
+import Congrat from './components/congrat/congrat';
 
 import store from './store/store';
 import { Provider } from 'react-redux';
@@ -19,6 +20,7 @@ root.render(
 
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/join/" element={<Join />}></Route>
+                <Route path="/congratulation/" element={<Congrat />}></Route>
 
             </Routes>  
         </BrowserRouter>

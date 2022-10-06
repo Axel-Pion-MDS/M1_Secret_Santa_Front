@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../button/button';
+import Snow from '../snow/snow';
 
 function Home() {
     const dispatch = useDispatch();
@@ -11,6 +12,8 @@ function Home() {
 
     return (
         <div className="content" id="home">
+
+            <Snow id="max-snow"></Snow>
 
             <div className="container">                
                 <img src={require('../../assets/images/santa.png')} alt="Santa claus" />

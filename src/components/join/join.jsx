@@ -29,6 +29,13 @@ function Join() {
     const [promotion, setPromotion] = useState([]);
     const [santa, setSanta] = useState([]);
     const [drawtimer, setDrawTimer] = useState(undefined);
+    const [error, setError] = useState('');
+
+    useEffect(()=>{
+        if(localStorage.getItem('register')){
+            navigate('/congratulation/');
+        }
+    }, [])
 
     useEffect(()=>{
         const config = {
@@ -106,6 +113,7 @@ function Join() {
         const santa_id = form.querySelector('#join-santa').value;
 
         if(!firstname.length || !lastname.length || !email.length){
+            setError('Please fill in all fields')
             return;
         }
 
@@ -128,7 +136,12 @@ function Join() {
         
         axios(config)
         .then(function (response) {
-        console.log(JSON.stringify(response.data));
+            if(response.data.result != 'success'){
+                setError(response.data.message);
+            }else{
+                localStorage.setItem('register', 'true');
+                navigate('/congratulation/');
+            }
         })
         .catch(function (error) {
         console.log(error);
@@ -213,6 +226,10 @@ function Join() {
                     </div>
                     
                     <Button onClick={(e)=>sendForm(e)}>Register me</Button>
+
+                    <div className="join-form-error-text">
+                        {error}
+                    </div>
                 </div>                
             </div>
 
