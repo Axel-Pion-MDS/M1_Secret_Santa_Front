@@ -71,3 +71,12 @@
     background-color: transparent;
     cursor: pointer;
 }
+
+#join .join-form-error-text{
+    margin-top: 16px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: red;
+}
