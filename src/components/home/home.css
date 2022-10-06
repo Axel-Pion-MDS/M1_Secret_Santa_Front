@@ -1,0 +1,48 @@
+#home .container{
+    justify-content: center;
+}
+
+#home .container::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(144deg, rgb(202 108 100) 0%, rgba(134,22,87,1) 100%);
+}
+
+#home .container img{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    margin-bottom: 60px;
+
+    -moz-animation: santa 3s ease-in-out infinite 0s alternate;
+    -webkit-animation: santa 3s ease-in-out infinite 0s alternate;
+    -o-animation: santa 3s ease-in-out infinite 0s alternate;
+    animation: santa 3s ease-in-out infinite 0s alternate;
+}
+
+#home .container h1{
+    text-align: center;
+    color: var(--color-1);
+}
+
+#home .container p{
+    text-align: center;
+    margin-top: 20px;
+    color: var(--color-1);
+}
+
+#home .container #home-button{
+    margin-top: 70px;
+}
+
+@keyframes santa {
+    0% { transform: translateY(-10px); }
+    100% { transform: translateY(10px); }
+}

@@ -1,0 +1,73 @@
+#join .container{
+}
+
+#join .container h1{
+    text-align: center;
+    color: var(--color-2);
+}
+
+#join .container p{
+    text-align: center;
+    margin-top: 20px;
+    color: var(--color-3);
+}
+
+#join #join-form{
+    margin-top: 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#join .form .row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#join .form .row .col{
+    width: calc(50% - 12px);
+}
+
+#join .form .row .full{
+    width: 100%;
+}
+
+#join .join-timer{
+    margin-bottom: 18px;
+    font-family: 'Roboto', sans-serif;
+    color: var(--color-2);
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+#join .join-timer .join-timer-time {
+    margin-left: 3px;
+    display: flex;
+    align-items: center;
+}
+
+#join .join-timer .join-timer-time b{
+    font-size: 20px;
+    margin: 0 5px;
+    color: var(--color-5);
+}
+
+#join select{
+    font-family: 'Roboto', sans-serif;
+    color: var(--color-2);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px;
+    box-sizing: border-box;
+    outline: none;
+    border: 2px solid var(--color-4);
+    border-radius: 12px;
+    background-color: transparent;
+    cursor: pointer;
+}
