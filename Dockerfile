@@ -1,12 +1,15 @@
-FROM node:18-alpine
+FROM node:13.12.0-alpine
 
 WORKDIR /app
 
-COPY . .
-RUN npm ci 
-RUN npm run build
+ENV PATH /app/node_modules/.bin:$PATH
 
-ENV NODE_ENV production
-EXPOSE 3000
+COPY package.json ./
+COPY package-lock.json ./
 
-CMD [ "npx", "serve", "build" ]
+RUN npm install --silent
+RUN npm install react-scripts@5.0.1 -g --silent
+
+COPY . ./
+
+CMD ["npm", "start"]
