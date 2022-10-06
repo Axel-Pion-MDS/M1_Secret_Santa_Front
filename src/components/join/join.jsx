@@ -32,6 +32,12 @@ function Join() {
     const [error, setError] = useState('');
 
     useEffect(()=>{
+        if(localStorage.getItem('register')){
+            navigate('/congratulation/');
+        }
+    }, [])
+
+    useEffect(()=>{
         const config = {
             method: 'get',
             url: 'http://127.0.0.1:8000/promotions/',
@@ -133,6 +139,7 @@ function Join() {
             if(response.data.result != 'success'){
                 setError(response.data.message);
             }else{
+                localStorage.setItem('register', 'true');
                 navigate('/congratulation/');
             }
         })

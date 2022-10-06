@@ -1,0 +1,31 @@
+#congrat .container{
+    justify-content: center;
+}
+
+#congrat .container img{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    margin-top: 60px;
+
+    -moz-animation: gift 3s ease-in-out infinite 0s alternate;
+    -webkit-animation: gift 3s ease-in-out infinite 0s alternate;
+    -o-animation: gift 3s ease-in-out infinite 0s alternate;
+    animation: gift 3s ease-in-out infinite 0s alternate;
+}
+
+#congrat .container h1{
+    text-align: center;
+    color: var(--color-2);
+}
+
+#congrat .container p{
+    margin-top: 60px;
+    color: var(--color-2);
+}
+
+
+@keyframes gift{
+    0% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
+}
